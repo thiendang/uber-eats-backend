@@ -26,6 +26,7 @@
 This backend is a full-featured, modular, and scalable system built with **NestJS**, **Prisma**, **Zod**, and **PostgreSQL**. It provides a solid architecture for authentication, authorization (RBAC), user profile management, language and permission modules, and more.
 
 ## 🔧 Tech Stack
+
 - **NestJS**: Modular backend framework
 - **Prisma**: Type-safe ORM for PostgreSQL
 - **Zod**: Type validation and schema definition
@@ -36,6 +37,7 @@ This backend is a full-featured, modular, and scalable system built with **NestJ
 ## 📁 Modules
 
 ### 🔐 Auth Module
+
 - Google OAuth
 - Email/password login
 - OTP (email-based) with resend + expiry
@@ -43,27 +45,32 @@ This backend is a full-featured, modular, and scalable system built with **NestJ
 - Guards: `AccessTokenGuard`, `APIKeyGuard`, `AuthenticationGuard`
 
 ### 🧑 Role Management
+
 - CRUD for roles
 - Assign permissions to roles
 - Prevent edits on base roles: `ADMIN`, `SELLER`, `CLIENT`
 - Validate permission IDs on update
 
 ### ✅ Permission Management
+
 - Permissions include: `method`, `path`, `module`, `name`
 - Only soft delete unless `isHard` is passed
 - Uniqueness validation on `(path + method)`
 
 ### 🌐 Language Management
+
 - CRUD for language IDs and names
 - Hard and soft delete support
 - All schema-level validation handled with Zod
 
 ### 👤 Profile Management
+
 - Get user profile (include `role`, `permissions` if specified)
 - Update profile (name, phone, avatar)
 - Change password (with verification)
 
 ## 🔒 Authorization
+
 - Every route is protected by default via `AuthenticationGuard`
 - Uses metadata decorator `@Auth()` to define allowed auth types (`BEARER`, `API_KEY`, `NONE`) and guard condition (`AND`, `OR`)
 - RBAC is enforced via:
@@ -72,6 +79,7 @@ This backend is a full-featured, modular, and scalable system built with **NestJ
   - Guards throw `InsufficientPermissionException` when blocked
 
 ## 📦 Shared Services & Utilities
+
 - `HashingService`: Bcrypt password hashing
 - `TokenService`: JWT encode/decode/verify
 - `MailingService`: Sends OTP email using React-based template (resend)
@@ -79,10 +87,12 @@ This backend is a full-featured, modular, and scalable system built with **NestJ
 - `env-config`: Strongly typed `.env` validation with `zod`
 
 ## 🧪 Testing
+
 - Uses `supertest` + `jest-e2e` for HTTP testing
 - Sample: `test/app.e2e-spec.ts`
 
 ## 📌 Design Highlights
+
 - Modularized by domain: each feature has `controller`, `service`, `repo`, `dto`, `model`, `error`, `constant`
 - Zod-based validation + transformation at DTO level (`nestjs-zod`)
 - Custom `ZodValidationPipe` and `ZodLocalValidationPipe`
@@ -90,12 +100,12 @@ This backend is a full-featured, modular, and scalable system built with **NestJ
 - Extensible and consistent error messages (`CommonErrorMessages`)
 
 ## 📚 Additional Notes
+
 - Uses Prisma `$queryRaw` only in special cases (e.g. caching role id lookup)
 - Supports both hard delete and soft delete logic via flags
 - Guard logic can dynamically combine strategies with `AND`/`OR` conditions
 - OTP email template: `src/shared/email-templates/otp.html`
 - Admin seed via `.env`: `ADMIN_NAME`, `ADMIN_EMAIL`, etc.
-
 
 ## Project setup
 
